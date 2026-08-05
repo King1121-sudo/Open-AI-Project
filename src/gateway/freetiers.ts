@@ -10,10 +10,9 @@ export interface FreeTier {
 // Claims like "unlimited" are interpreted as the providers that advertise no
 // hard per-month token cap. Figures move around; treat as guidance, not a contract.
 export const FREE_TIERS: FreeTier[] = [
-  { provider: "pollinations", model: "openai/gpt-4o-mini", freeForever: true, note: "Pollinations.ai — no key, no cap" },
-  { provider: "pollinations", model: "meta-llama/llama-3.3-70b-instruct", freeForever: true, note: "Pollinations.ai — no key, no cap" },
-  { provider: "pollinations", model: "qwen/qwen-2.5-72b-instruct", freeForever: true, note: "Pollinations.ai — no key, no cap" },
-  { provider: "pollinations", model: "google/gemma-2-9b-it", freeForever: true, note: "Pollinations.ai — no key, no cap" },
+  { provider: "pollinations", model: "openai", monthlyTokens: 5_000_000, note: "Pollinations.ai free Pollen credits (requires API key from enter.pollinations.ai/keys)" },
+  { provider: "pollinations", model: "kimi", monthlyTokens: 5_000_000, note: "Pollinations.ai free Pollen credits" },
+  { provider: "pollinations", model: "deepseek", monthlyTokens: 5_000_000, note: "Pollinations.ai free Pollen credits" },
   { provider: "openrouter", model: "openai/gpt-oss-20b:free", monthlyTokens: 3_000_000, note: "free model routes (rate-limited)" },
   { provider: "openrouter", model: "cohere/north-mini-code:free", monthlyTokens: 3_000_000, note: "free model routes (rate-limited)" },
   { provider: "openrouter", model: "google/gemma-4-31b-it:free", monthlyTokens: 3_000_000, note: "free model routes (rate-limited)" },

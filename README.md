@@ -1,9 +1,9 @@
 # AirRoute — free AI gateway
 
 One endpoint, many free providers, auto-fallback. **Install once, type `airroute`,
-and it starts and opens the dashboard in your browser** — no config required.
-**Pollinations.ai is pre-wired and works without any API key**, so `auto` mode
-is usable immediately with zero setup.
+and it starts and opens the dashboard in your browser**. Get a free Pollinations.ai
+API key at [enter.pollinations.ai/keys](https://enter.pollinations.ai/keys) and set
+`POLLINATIONS_API_KEY` in `.env` for zero-cost text generation.
 
 ## Install & run
 
@@ -22,9 +22,10 @@ airroute --no-browser       # start without opening the dashboard
 ```
 
 Add free-tier keys in `.env` or in the console (Providers tab). It works with
-just one key (others are skipped by failover). **Pollinations.ai is pre-wired
-and requires no key at all** — just use `auto` or any route and it works out of the box.
-Rebuild after changing code: `npm run build` (the `npm link` install picks it up automatically).
+just one key (others are skipped by failover). **Pollinations.ai requires a free
+API key** from [enter.pollinations.ai/keys](https://enter.pollinations.ai/keys);
+set `POLLINATIONS_API_KEY` in `.env`. Rebuild after changing code:
+`npm run build` (the `npm link` install picks it up automatically).
 
 Your base URL is `http://localhost:8787`. There are two APIs: **OpenAI-compatible**
 `http://localhost:8787/v1` and **Anthropic-compatible** `http://localhost:8787`.
@@ -304,8 +305,7 @@ Cooldown state is visible in `/stats` as `cooldownRemainingMs`.
 - **`auto` model** — an adaptive route. Instead of a fixed chain it picks among all
   usable providers, skips cooled-down ones, and prefers the lowest recent latency
   while rotating so no single provider gets hammered. `model: "auto"` works on
-  both the OpenAI and Anthropic endpoints. **Keyless providers like Pollinations.ai
-  are included automatically, so `auto` works with zero config.**
+  both the OpenAI and Anthropic endpoints.
 - **Token compression (on by default)** — long conversations are compacted before
   they reach a provider: oldest plain-text turns are pruned and oversized messages
   truncated when the request exceeds `GATEWAY_COMPRESS_BUDGET` (default 64000).
@@ -314,20 +314,21 @@ Cooldown state is visible in `/stats` as `cooldownRemainingMs`.
 - **Free Tiers page** — console → *Free tiers* shows each provider's approximate
   monthly free allowance, what you've used, remaining budget, and which ones are
   free forever. `GET /api/freetiers`.
-- **Zero-config free models** — Pollinations.ai is pre-wired as a keyless provider.
-  No API key, no signup, no config. Just start the gateway and use `auto`.
+- **Pollinations.ai free credits** — sign up at [enter.pollinations.ai/keys](https://enter.pollinations.ai/keys)
+  for free Pollen credits. Models: `openai`, `kimi`, `deepseek`, `glm`, `claude-fast`.
 
 ## Providers
 
-13 pre-wired providers. **Zero-config:** Pollinations.ai works without any API key.
+13 pre-wired providers. Pollinations.ai requires a free API key from [enter.pollinations.ai/keys](https://enter.pollinations.ai/keys).
 Free tiers that just need a key: OpenRouter, Gemini, Groq, Mistral, Cerebras,
 DeepSeek, Together, Z.AI GLM-Flash (Cloudflare needs an account ID). Add any
 OpenAI-compatible provider from the console (Providers → + Add Provider).
 
 ## Free models without restrictions
 
-- **Pollinations.ai** — completely free, no key needed, no monthly cap. Models:
-  GPT-4o-mini, Llama-3.3-70B, Qwen-2.5-72B, Gemma-2-9B, DeepSeek-R1, and more.
+- **Pollinations.ai** — free Pollen credits on signup, no credit card required.
+  Models: `openai`, `kimi`, `deepseek`, `glm`, `claude-fast`, `gemini-large`, `qwen3.8-max`.
+  Get your key at [enter.pollinations.ai/keys](https://enter.pollinations.ai/keys).
 - **OpenRouter free models** — gpt-oss-20b, Gemma-4-31B, Cohere North, Nemotron-3,
   Llama-4-Maverick, Mistral-Small-3.1-24B (rate-limited but free).
 - **Z.AI GLM-Flash** — free forever, no token cap.

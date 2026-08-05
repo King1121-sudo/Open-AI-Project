@@ -133,15 +133,11 @@ function viewDashboard(){
     ['Total requests',t.calls],['Succeeded',t.ok],['Failed',t.failed],
     ['Input tokens',t.tokensIn],['Output tokens',t.tokensOut],['In flight',STATS.requestsInFlight]
   ].map(([l,v])=>'<div class="card"><div class="v">'+num(v)+'</div><div class="l">'+l+'</div></div>').join('');
-  let keyless='';
-  for(const[n,p]of Object.entries(CONFIG.providers)){if(p.keyless)keyless+='<span class="badge ok">'+esc(n)+' keyless</span> ';}
-  let banner=keyless?'<div style="background:rgba(55,214,122,.08);border:1px solid rgba(55,214,122,.25);border-radius:10px;padding:10px 14px;margin-bottom:18px;font-size:13px">✅ Zero-config ready: '+keyless+'— use <b>auto</b> or any route without adding keys.</div>':'';
   let pr='';
   for(const[n,s]of Object.entries(STATS.providers))pr+='<tr><td>'+esc(n)+'&nbsp;'+healthOf(n)+'</td><td>'+s.calls+'</td><td>'+s.ok+'</td><td>'+s.failed+'</td><td>'+s.rateLimited+'</td><td>'+num(s.tokensIn)+' / '+num(s.tokensOut)+'</td><td>'+esc(s.lastError?s.lastError.slice(0,40):'—')+'</td></tr>';
   let ro='';
   for(const[n,s]of Object.entries(STATS.routes))ro+='<tr><td>'+esc(n)+'</td><td>'+s.calls+'</td><td>'+s.ok+'</td><td>'+s.failed+'</td></tr>';
   return '<h1>Dashboard</h1><div class="sub">Live usage across your free providers</div>'
-    +banner
     +'<div class="cards">'+cards+'</div>'
     +'<h2>Providers</h2><table><thead><tr><th>Provider</th><th>Calls</th><th>OK</th><th>Failed</th><th>429</th><th>Tokens in/out</th><th>Last error</th></tr></thead><tbody>'+pr+'</tbody></table>'
     +'<h2>Routes</h2><table><thead><tr><th>Route</th><th>Calls</th><th>Failed</th></tr></thead><tbody>'+ro+'</tbody></table>';
@@ -150,8 +146,7 @@ function viewDashboard(){
 function viewProviders(){
   let rows='';
   for(const[name,p]of Object.entries(CONFIG.providers)){
-    const keyLabel=p.keyless?'<span class="badge ok">keyless</span>':(p.keySet?'<span class="badge ok">set</span>':'<span class="badge amber">missing</span>');
-    rows+='<div class="group"><div class="head"><div><h3>'+esc(name)+' '+healthOf(name)+'</h3><div class="meta">'+esc(p.type)+' · '+p.models.length+' model(s) · key '+keyLabel+'</div></div><div><button class="btn ghost sm" data-edit="'+esc(name)+'">Edit</button> <button class="btn danger sm" data-del="'+esc(name)+'">Delete</button></div></div>'
+    rows+='<div class="group"><div class="head"><div><h3>'+esc(name)+' '+healthOf(name)+'</h3><div class="meta">'+esc(p.type)+' · '+p.models.length+' model(s) · key '+(p.keySet?'<span class="badge ok">set</span>':'<span class="badge amber">missing</span>')+'</div></div><div><button class="btn ghost sm" data-edit="'+esc(name)+'">Edit</button> <button class="btn danger sm" data-del="'+esc(name)+'">Delete</button></div></div>'
       +'<div class="body hidden"><div class="meta">Models: '+esc(p.models.join(', '))+'</div></div></div>';
   }
   return '<div class="toolbar"><div><h1>Providers</h1><div class="sub">Add or edit the free providers the gateway routes to. Changes save to '+esc(CONFIG.configPath)+' and apply immediately.</div></div><button class="btn" data-add="provider">+ Add Provider</button></div>'
@@ -229,7 +224,7 @@ function viewSetup(){
   const o=window.location.origin;
   const oai=o+'/v1';
   return '<h1>Setup</h1><div class="sub">Point your CLI or IDE at this gateway. OpenAI-compatible tools use <b>'+oai+'</b>; Claude Code uses <b>'+o+'</b>. Models: default, coder, fast, auto.</div>'
-   +'<div style="background:rgba(55,214,122,.08);border:1px solid rgba(55,214,122,.25);border-radius:10px;padding:12px 16px;margin-bottom:18px;font-size:13px">✅ <b>Zero-config mode:</b> Pollinations.ai is pre-wired and requires no API key. Just set <code>model: auto</code> and it works out of the box.</div>'
+   +'<div style="background:rgba(245,182,66,.08);border:1px solid rgba(245,182,66,.25);border-radius:10px;padding:12px 16px;margin-bottom:18px;font-size:13px">⚠️ <b>Pollinations.ai now requires a free API key.</b> Get one at <a href="https://enter.pollinations.ai/keys" target="_blank">enter.pollinations.ai/keys</a> and set <code>POLLINATIONS_API_KEY</code> in your environment or <code>.env</code>.</div>'
    +blk('claude','Claude Code','# add to your shell profile\\nexport ANTHROPIC_BASE_URL='+o+'\\nexport ANTHROPIC_AUTH_TOKEN=airroute\\nexport ANTHROPIC_MODEL=coder')
    +blk('opencode','OpenCode','export OPENAI_BASE_URL='+oai+'\\nexport OPENAI_API_KEY=airroute\\n\\nopencode run --model default "write tests"')
    +blk('cline','Cline (VS Code)','Settings -> API Provider -> OpenAI Compatible\\nBase URL: '+oai+'\\nAPI Key: airroute\\nModel ID: coder')

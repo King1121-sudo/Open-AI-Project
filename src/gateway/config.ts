@@ -42,17 +42,16 @@ const DEFAULT_PROVIDERS: Record<string, ProviderConfig> = {
   },
   pollinations: {
     type: "openai",
-    baseUrl: "https://api.pollinations.ai/v1",
-    apiKey: "",
-    keyless: true,
+    baseUrl: "https://gen.pollinations.ai/v1",
+    apiKey: "ENV:POLLINATIONS_API_KEY",
     models: [
-      "openai/gpt-4o-mini",
-      "meta-llama/llama-3.3-70b-instruct",
-      "qwen/qwen-2.5-72b-instruct",
-      "google/gemma-2-9b-it",
-      "mistral/mistral-7b-instruct",
-      "deepseek/deepseek-r1",
-      "nousresearch/nous-hermes-2-mixtral",
+      "openai",
+      "kimi",
+      "deepseek",
+      "glm",
+      "claude-fast",
+      "gemini-large",
+      "qwen3.8-max",
     ],
   },
   zal: {
@@ -115,7 +114,7 @@ const DEFAULT_PROVIDERS: Record<string, ProviderConfig> = {
 };
 const DEFAULT_ROUTES: Record<string, string[]> = {
   default: [
-    "pollinations/openai/gpt-4o-mini",
+    "pollinations/openai",
     "openrouter/openai/gpt-oss-20b:free",
     "openrouter/cohere/north-mini-code:free",
     "openrouter/google/gemma-4-31b-it:free",
@@ -124,7 +123,7 @@ const DEFAULT_ROUTES: Record<string, string[]> = {
     "gemini/gemini-3.5-flash",
   ],
   coder: [
-    "pollinations/openai/gpt-4o-mini",
+    "pollinations/openai",
     "openrouter/cohere/north-mini-code:free",
     "openrouter/nvidia/nemotron-3-nano-30b-a3b:free",
     "groq/llama-3.3-70b-versatile",
@@ -133,7 +132,7 @@ const DEFAULT_ROUTES: Record<string, string[]> = {
     "together/meta-llama/Llama-3.3-70B-Instruct-Turbo",
   ],
   fast: [
-    "pollinations/openai/gpt-4o-mini",
+    "pollinations/openai",
     "openrouter/openai/gpt-oss-20b:free",
     "zal/glm-4-flash",
     "gemini/gemini-3.1-flash-lite",
