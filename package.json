@@ -1,0 +1,56 @@
+{
+  "name": "airroute",
+  "version": "1.0.2",
+  "description": "AirRoute — free AI gateway. One endpoint, many free providers, auto-fallback, adaptive auto routing, token compression, and a full admin console. Works with Claude Code, OpenCode, Cline, Copilot & any OpenAI/Anthropic-compatible agent.",
+  "type": "module",
+  "author": "AirRoute",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/airroute/airroute.git"
+  },
+  "bugs": {
+    "url": "https://github.com/airroute/airroute/issues"
+  },
+  "homepage": "https://github.com/airroute/airroute#readme",
+  "publishConfig": {
+    "access": "public"
+  },
+  "bin": {
+    "airroute": "dist/gateway/index.js",
+    "gateway": "dist/gateway/index.js",
+    "agent": "dist/index.js"
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsx src/index.ts",
+    "gateway": "tsx src/gateway/index.ts",
+    "airroute": "tsx src/gateway/index.ts",
+    "start": "node dist/gateway/index.js",
+    "typecheck": "tsc --noEmit",
+    "prepublishOnly": "npm run build"
+  },
+  "keywords": [
+    "ai",
+    "gateway",
+    "llm",
+    "openai",
+    "anthropic",
+    "free",
+    "router",
+    "proxy",
+    "claude-code",
+    "opencode"
+  ],
+  "engines": {
+    "node": ">=18.17"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "tsx": "^4.19.0",
+    "typescript": "^5.6.0"
+  }
+}

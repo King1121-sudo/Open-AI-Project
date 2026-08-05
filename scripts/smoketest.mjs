@@ -1,0 +1,10 @@
+const base = "http://localhost:8787";
+const conf = await (await fetch(`${base}/api/config`)).json();
+console.log("configPath:", conf.configPath, "| port:", conf.port, "| providers:", Object.keys(conf.providers).length, "| routes:", Object.keys(conf.routes).length);
+const health = await (await fetch(`${base}/api/health`)).json();
+console.log("health:", Object.fromEntries(Object.entries(health).map(([k, v]) => [k, v.reason || (v.ok ? `ok ${v.latencyMs}ms` : `down ${v.status}`)])));
+const dash = await fetch(`${base}/dashboard`);
+const html = await dash.text();
+console.log("console status:", dash.status, "| sidebar nav:", html.includes('data-view="providers"'), "| add btn:", html.includes('data-add="provider"'));
+const models = await (await fetch(`${base}/v1/models`)).json();
+console.log("models listed:", models.data.length);
