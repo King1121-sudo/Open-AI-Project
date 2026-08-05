@@ -357,4 +357,5 @@ docker run -d --name gateway -p 8787:8787 \
 
 Keys come from environment variables (`.env` is gitignored and not copied into the image).
 Config is validated at startup — unknown provider types, missing models, and routes
-that reference unknown providers print a warning.
+that reference unknown providers print a warning.#   O p e n - A I - P r o j e c t  
+ 
