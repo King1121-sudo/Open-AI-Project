@@ -1,6 +1,6 @@
 {
   "name": "airroute",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "AirRoute — free AI gateway. One endpoint, many free providers, auto-fallback, adaptive auto routing, token compression, and a full admin console. Works with Claude Code, OpenCode, Cline, Copilot & any OpenAI/Anthropic-compatible agent.",
   "type": "module",
   "author": "AirRoute",
